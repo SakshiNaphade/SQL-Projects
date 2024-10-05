@@ -1,0 +1,48 @@
+CREATE TABLE Books (
+    BookID INT PRIMARY KEY,
+    Title VARCHAR(255),
+    Author VARCHAR(255),
+    Genre VARCHAR(100),
+    Available BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE Borrowers (
+    BorrowerID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    ContactInfo VARCHAR(255)
+);
+
+CREATE TABLE Loans (
+    LoanID INT PRIMARY KEY,
+    BookID INT,
+    BorrowerID INT,
+    LoanDate DATE,
+    DueDate DATE,
+    FOREIGN KEY (BookID) REFERENCES Books(BookID),
+    FOREIGN KEY (BorrowerID) REFERENCES Borrowers(BorrowerID)
+);
+
+CREATE TABLE Authors (
+    AuthorID INT PRIMARY KEY,
+    Name VARCHAR(255)
+);
+INSERT INTO Books (BookID, Title, Author, Genre, Available)
+VALUES (1, 'To Kill a Mockingbird', 'Harper Lee', 'Fiction', TRUE);
+INSERT INTO Borrowers (BorrowerID, Name, ContactInfo)
+VALUES (1, 'John Doe', 'john.doe@example.com');
+INSERT INTO Loans (LoanID, BookID, BorrowerID, LoanDate, DueDate)
+VALUES (1, 1, 1, '2024-10-01', '2024-10-15');
+SELECT * FROM Books WHERE Available = TRUE;
+
+SELECT B.Title, L.LoanDate, L.DueDate
+FROM Loans L
+JOIN Books B ON L.BookID = B.BookID
+JOIN Borrowers BR ON L.BorrowerID = BR.BorrowerID
+WHERE BR.Name = 'John Doe';
+
+SELECT B.Title, BR.Name, L.DueDate
+FROM Loans L
+JOIN Books B ON L.BookID = B.BookID
+JOIN Borrowers BR ON L.BorrowerID = BR.BorrowerID
+WHERE L.DueDate < CURDATE();
+

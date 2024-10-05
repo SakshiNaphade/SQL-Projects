@@ -1,0 +1,9 @@
+Description:
+The Library Management System is a simple database project designed to manage books, authors, borrowers, and loans. The database helps keep track of which books are available, who has borrowed them, and when they are due back. The project demonstrates key SQL concepts such as table creation, foreign keys, joins, and data manipulation.
+
+Key Features:
+Manage books (title, author, genre, and availability status)
+Track borrowers (name, contact details)
+Record loans (who borrowed which book and the due date)
+Check availability of books
+Simple reports for due and overdue books
